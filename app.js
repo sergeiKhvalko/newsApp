@@ -61,9 +61,9 @@ const newsService = (function () {
   const apiUrl = 'https://news-api-v2.herokuapp.com';
 
   return {
-    topHeadlines(country = 'ru', cb) {
+    topHeadlines(country, category = 'sport', cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&category=sport&apiKey=${apiKey}`, cb
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`, cb
       );
     },
     everything(query, cb) {
@@ -77,6 +77,7 @@ const newsService = (function () {
 // Elements
 const form = document.forms['newsControls'];
 const countrySelect = form.elements['country'];
+const categorySelect = form.elements['category'];
 const searchInput = form.elements['search'];
 
 form.addEventListener('submit', (e) => {
@@ -95,10 +96,11 @@ function loadNews() {
   showLoader();
 
   const country = countrySelect.value;
+  const category = categorySelect.value;
   const searchText = searchInput.value;
 
   if (!searchText) {
-    newsService.topHeadlines(country, onGetResponse);
+    newsService.topHeadlines(country, category, onGetResponse);
   } else {
     newsService.everything(searchText, onGetResponse);
   }
@@ -121,7 +123,7 @@ function onGetResponse(err, res) {
 
 // Function render news
 function renderNews(news) {
-  const newsContainer = document.querySelector('.news-container .row');
+  const newsContainer = document.querySelector('.news-container .grid-container');
   if (newsContainer.children.length) {
     clearContainer(newsContainer);
   }
@@ -144,21 +146,19 @@ function clearContainer(container) {
   }
 }
 
-function newsTemplate({ urlToImage, title, url, description }) {
+function newsTemplate({ urlToImage = 'https://osnova-k.ru/images/no-image.jpg', title, url, description }) {
   return `
-    <div class="col s12">
-        <div class="card">
-            <div class="card-image">
-                <img src="${urlToImage}">
-                <span class="card-title">${title || ''}</span>
-            </div>
-            <div class="card-content">
-                <p>${description || ''}</p>
-            </div>
-            <div class="card-action">
-                <a href="${url}">Read more</a>
-            </div>
-        </div>
+    <div class="card">
+      <div class="card-image">
+        <img src="${urlToImage}">
+        <span class="card-title">${title || ''}</span>
+      </div>
+      <div class="card-content">
+        <p>${description || ''}</p>
+      </div>
+      <div class="card-action">
+        <a href="${url}">Read more</a>
+      </div>
     </div>
   `;
 }
