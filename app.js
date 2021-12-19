@@ -57,18 +57,17 @@ function customHttp() {
 const http = customHttp();
 
 const newsService = (function () {
-  const apiKey = '47d0179516d34356865bc82534027159';
   const apiUrl = 'https://news-api-v2.herokuapp.com';
 
   return {
     topHeadlines(country, category = 'sport', cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`, cb
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${secrets.API_KEY}`, cb
       );
     },
     everything(query, cb) {
       http.get(
-        `${apiUrl}/everything?q=${query}&apiKey=${apiKey}`, cb
+        `${apiUrl}/everything?q=${query}&apiKey=${secrets.API_KEY}`, cb
       );
     }
   };
