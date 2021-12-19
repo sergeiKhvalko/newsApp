@@ -62,12 +62,12 @@ const newsService = (function () {
   return {
     topHeadlines(country, category = 'sport', cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${{secrets.API_KEY}}`, cb
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${secrets.API_KEY}`, cb
       );
     },
     everything(query, cb) {
       http.get(
-        `${apiUrl}/everything?q=${query}&apiKey=${{secrets.API_KEY}}`, cb
+        `${apiUrl}/everything?q=${query}&apiKey=${secrets.API_KEY}`, cb
       );
     }
   };
