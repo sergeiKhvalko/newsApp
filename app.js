@@ -1,3 +1,4 @@
+
 // Custom Http Module
 function customHttp() {
   return {
@@ -58,16 +59,17 @@ const http = customHttp();
 
 const newsService = (function () {
   const apiUrl = 'https://news-api-v2.herokuapp.com';
-
+  const apiKey ='47d0179516d34356865bc82534027159';
+  
   return {
     topHeadlines(country, category = 'sport', cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${API_KEY}`, cb
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`, cb
       );
     },
     everything(query, cb) {
       http.get(
-        `${apiUrl}/everything?q=${query}&apiKey=${{API_KEY}}`, cb
+        `${apiUrl}/everything?q=${query}&apiKey=${apiKey}`, cb
       );
     }
   };
