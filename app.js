@@ -62,7 +62,7 @@ const newsService = (function () {
   return {
     topHeadlines(country, category = 'sport', cb) {
       http.get(
-        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${{API_KEY}}`, cb
+        `${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${API_KEY}`, cb
       );
     },
     everything(query, cb) {
